@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usmat Go - Taksi</title>
+    <!-- Telegram Web App skripti -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        h2 { text-align: center; color: #ffcc00; background: #222; padding: 10px; border-radius: 8px; }
+        label { font-weight: bold; display: block; margin-top: 15px; }
+        select, input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            background-color: #ffcc00;
+            color: #222;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover { background-color: #e6b800; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>🚕 Usmat Go</h2>
+    
+    <label for="destination">Qayerga borasiz?</label>
+    <select id="destination">
+        <option value="🏡 Usmat Markazi - 10 000 so'm">🏡 Usmat Markazi (10 000 so'm)</option>
+        <option value="🏡 Qishloq qismiga - 15 000 so'm">🏡 Qishloq qismiga (15 000 so'm)</option>
+        <option value="🏫 Maktab atrofi - 12 000 so'm">🏫 Maktab atrofi (12 000 so'm)</option>
+        <option value="🛒 Bozor - 10 000 so'm">🛒 Bozor (10 000 so'm)</option>
+        <option value="📦 Dostavka - 15 000 so'm">📦 Dostavka (15 000 so'm)</option>
+    </select>
+
+    <label for="phone">Telefon raqamingiz:</label>
+    <input type="tel" id="phone" placeholder="+998 91 123 45 67">
+
+    <button onclick="sendOrder()">Buyurtma berish</button>
+</div>
+
+<script>
+    let tg = window.Telegram.WebApp;
+    tg.expand(); // Oynani to'liq ochish
+
+    function sendOrder() {
+        let dest = document.getElementById('destination').value;
+        let phone = document.getElementById('phone').value;
+
+        if(!phone) {
+            alert("Iltimos, telefon raqamingizni kiriting!");
+            return;
+        }
+
+        let data = {
+            destination: dest,
+            phone: phone
+        };
+
+        // Ma'lumotni botga yuborish
+        tg.sendData(JSON.stringify(data));
+        tg.close();
+    }
+</script>
+
+</body>
+</html>
